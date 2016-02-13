@@ -1,0 +1,34 @@
+scriptId = 'com.myomy.scripts.positions'
+scriptTitle = 'Positions'
+scriptDetailsUrl = ''
+
+function onPoseEdge(pose, edge)
+    -- Forward/backward and shuttle
+    if pose == "waveIn" or pose == "waveOut" then
+        local now = myo.getTimeMilliseconds()
+
+        if edge == "on" then
+            -- Deal with direction and arm
+            pose = conditionallySwapWave(pose)
+
+            if pose == "waveIn" then
+                shuttleDirection = "backward"
+            else
+                shuttleDirection = "forward"
+            end
+
+            -- Extend unlock and notify user
+            myo.unlock("hold")
+            myo.notifyUserAction()
+
+            -- Initial burst
+            shuttleBurst()
+            shuttleSince = now
+            shuttleTimeout = SHUTTLE_CONTINUOUS_TIMEOUT
+        end
+        if edge == "off" then
+            myo.unlock("timed")
+            shuttleTimeout = nil
+        end
+    end
+end
