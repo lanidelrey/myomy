@@ -35,7 +35,7 @@ function onPoseEdge(pose, edge)
 		elseif pose == "fist" then
 			onFist()
 		elseif pose == "fingersSpread" then
-			onFingersSpread(keyEdge)
+			onFingersSpread()
 		end
 	elseif edge == "off" then
 		offFist()
@@ -77,9 +77,9 @@ function offFist()
 	myo.mouse("left","up")
 end
 
-function onFingersSpread(keyEdge)
-	myo.debug("Escape")
+function onFingersSpread()
+	myo.debug("left click")
 --	myo.vibrate("short")
 --	myo.vibrate("long")
-	myo.keyboard("escape",keyEdge)
+	myo.mouse("left","click")
 end
