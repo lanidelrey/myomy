@@ -2,6 +2,23 @@ scriptId = 'com.myomy.scripts.positions'
 scriptTitle = 'Positions'
 scriptDetailsUrl = ''
 
+-- Initialization
+function onForegroundWindowChange(app, title)
+	myo.debug("onForegroundWindowChange: " .. app .. ", " .. title)
+  return platform == "MacOS" and app == "com.sketchup.SketchUp.2016"
+	end
+
+-- Mouse enabled only when unlocked
+function onUnlock()
+  myo.controlMouse(true)
+  end
+
+function onLock()
+  myo.controlMouse(false)
+  end
+
+
+-- Triggers
 function onPoseEdge(pose, edge)
     -- Forward/backward and shuttle
     if pose == "waveIn" or pose == "waveOut" then
